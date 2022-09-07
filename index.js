@@ -15,6 +15,7 @@ morgan.token('record', function getRecord (req) {
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :record' ))
 app.use(express.json())
 app.use(cors())
+app.use(express.static('build'))
 
 let persons = [
     { 
