@@ -5,7 +5,7 @@ const url = process.env.MONGODB_URI
 console.log('connecting to', url)
 
 mongoose.connect(url)
-  .then(result => {
+  .then(() => {
     console.log('connected to MongoDB')
   })
   .catch((error) => {
@@ -22,14 +22,14 @@ const noteSchema = new mongoose.Schema({
     type: String,
     minLength: 8,
     validate: {
-    validator: function(v) {
-      const len2 = (v.length-4).toString()
-      const len3 = (v.length-4).toString()
-      const regex2 = new RegExp(`\\d{2}-\\d{${len2}}`)
-      const regex3 = new RegExp(`\\d{3}-\\d{${len3}}`)
-      return regex2.test(v)||regex3.test(v);
+      validator: function(v) {
+        const len2 = (v.length-3).toString()
+        const len3 = (v.length-4).toString()
+        const regex2 = new RegExp(`\\d{2}-\\d{${len2}}`)
+        const regex3 = new RegExp(`\\d{3}-\\d{${len3}}`)
+        return regex2.test(v)||regex3.test(v)
       },
-      message: props => `${props.value} is not a valid phone number!`
+      message: props => `${props.value} is not a valid phone number! Use xxx-x... or xx-x...`
     },
     required: [true, 'Phone number required']
   }
